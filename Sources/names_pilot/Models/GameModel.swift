@@ -10,7 +10,7 @@ final class Game: Model, Content, @unchecked Sendable {
 
     @Field(key: "difficulty") // Defines a field property, corresponding to a database column.
     var difficulty: String // Stores the difficulty level of the game.
-l
+
     @Timestamp(key: "created_at", on: .create) // Defines a timestamp that is automatically set on creation.
     var createdAt: Date? // Stores the creation timestamp of the game.
 

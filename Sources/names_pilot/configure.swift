@@ -20,6 +20,8 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(CreateGame())
     app.migrations.add(CreatePlayer())
     app.migrations.add(CreateRound())
+    app.migrations.add(AddSessionIDToGame())
+    app.migrations.add(CreateSession())
 
     // register routes
     try routes(app)

@@ -30,6 +30,14 @@ struct GameController: RouteCollection {
     func create(req: Request) async throws -> Game {
         // Decode the incoming data (like from a web form) into a 'Game' object.
         let game = try req.content.decode(Game.self)
+        
+        // Create a new session
+        let session = Session()
+        try await session.save(on: req.db)
+        
+        // Assign the session ID to the game
+        game.sessionID = session.id!.uuidString
+        
         // Save the new 'Game' object to the database.
         try await game.save(on: req.db)
         // Return the saved game, which now has an ID from the database.

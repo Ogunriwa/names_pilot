@@ -13,6 +13,8 @@ struct CreateGame: AsyncMigration {
             .field("timer", .int, .required) // Adds a non-empty 'timer' column of type Integer.
             .field("created_at", .datetime) // Adds a 'created_at' column for the creation timestamp.
             .create() // Executes the table creation.
+        
+        
     }
 
     // The 'revert' function removes the database table when the migration is undone.

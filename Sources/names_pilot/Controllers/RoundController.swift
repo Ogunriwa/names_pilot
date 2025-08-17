@@ -8,6 +8,7 @@ struct RoundValidationRequest: Content {
     let animal: String
     let place: String
     let object: String
+    let sessionID: String
 }
 
 // A struct to define the expected response from the validation server.
@@ -80,13 +81,19 @@ struct RoundController: RouteCollection {
             throw Abort(.notFound)
         }
 
+        // Fetch the associated game to get the sessionID
+        guard let game = try await Game.find(round.$game.id, on: req.db) else {
+            throw Abort(.notFound, reason: "Game not found for this round.")
+        }
+
         // Prepare the data to be sent for validation.
         let validationRequest = RoundValidationRequest(
             letter: round.letter,
             name: round.name,
             animal: round.animal,
             place: round.place,
-            object: round.object
+            object: round.object,
+            sessionID: game.sessionID
         )
 
         // !! IMPORTANT !!
